@@ -58,6 +58,8 @@
   },
   "devDependencies": {
     "electron": "^2.0.1",
+    "electron-is-dev": "^0.3.0",
+    "electron-reload": "^1.2.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0"
   },

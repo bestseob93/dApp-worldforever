@@ -15,9 +15,12 @@ module.exports = {
         "function-paren-newline": 0,
         "comma-dangle": 0,
         "no-use-before-define": 0,
+        "no-underscore-dangle": 0,
         "arrow-parens": 0,
+        "arrow-body-style": 0,
         "no-param-reassign": 0,
-        "no-console": 0
+        "no-console": 0,
+        "import/prefer-default-export": 0,
     },
     "overrides": {
         "files": ["src/*.js"],
