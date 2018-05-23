@@ -8,7 +8,7 @@ WorldForever is an ethereum based donation crowdfunding service. Previously, rel
 
 ### Frontend
 
-- electron
+- ~~electron~~
 - react
 - react-router
 - redux

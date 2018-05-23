@@ -57,17 +57,14 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "electron": "^2.0.1",
-    "electron-is-dev": "^0.3.0",
-    "electron-reload": "^1.2.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0"
   },
   "main": "scripts/electron-starter.js",
   "scripts": {
-    "react-start": "BROWSER=no node scripts/start.js",
+    "start": "node scripts/start.js",
     "electron-start": "ELECTRON_DEV=1 electron .",
-    "start": "$(yarn bin)/concurrently 'yarn run react-start' 'wait-on http://localhost:3000/ && yarn run electron-start'",
+    "electron-react": "$(yarn bin)/concurrently 'yarn run react-start' 'wait-on http://localhost:3000/ && yarn run electron-start'",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
