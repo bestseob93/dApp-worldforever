@@ -11,7 +11,7 @@ WorldForever is an ethereum based donation crowdfunding service. Previously, rel
 - ~~electron~~
 - react
 - react-router
-- redux
+- redux (Duck Pattern)
 - redux-saga
 
 ### dApp

@@ -20,6 +20,6 @@ export default handleActions({
     return state;
   },
   [types.RECEIVE_DATA]: (state, action) => {
-    return state.set('datas', action.payload);
+    return state.set('datas', fromJS(action.payload));
   }
 }, defaultState);
