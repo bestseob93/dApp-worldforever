@@ -1,16 +1,24 @@
-import { call, put } from 'redux-saga/effects';
+import { take, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { actionCreators as actions } from 'ducks/main.duck';
+import { types, actionCreators as actions } from 'ducks/main.duck';
+
+console.log(actions.receiveData);
 
 export function fetchImageApi() {
+  console.log('api called');
   return axios.get('https://picsum.photos/list')
-    .then(response => response.json())
-    .then(json => console.log(json));
+    .then(response => {
+      return response.data;
+    });
 }
 
-export function* fetchImages() {
-  yield put(actions.requestData());
-  const posts = yield call(fetchImageApi);
-  yield put(actions.receivePosts(posts));
+export function* watchFetchImages() {
+  console.log('saga called');
+  while (true) {
+    yield take(types.REQUEST_DATA);
+    const datas = yield call(fetchImageApi);
+    console.log(datas);
+    yield put(actions.receiveData(datas));
+  }
 }
