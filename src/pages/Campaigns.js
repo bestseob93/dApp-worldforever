@@ -1,13 +1,12 @@
 import React from 'react';
 import Template from 'components/Template';
-import HomeContainer from 'containers/Home/HomeContainer';
 
-function Home() {
+function Campaigns() {
   return (
     <Template>
-      <HomeContainer />
+      Campaigns
     </Template>
   );
 }
 
-export default Home;
+export default Campaigns;

@@ -15,7 +15,8 @@ class HomeContainer extends Component {
     console.log(this.props);
     return (
       <div>
-        <p>3</p>
+        <br />
+        <br />
         <button type="button" onClick={this.onClick}>fetch data</button>
       </div>
     );

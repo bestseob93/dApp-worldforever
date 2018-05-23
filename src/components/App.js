@@ -1,20 +1,16 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home } from 'pages';
-import './App.scss';
+import { Home, Campaigns, News, Notice } from 'pages';
 
 function App() {
   return (
     <Fragment>
-      <header className="App-header">
-        <h1 className="App-title">Welcome to React</h1>
-      </header>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/campaigns" component={Campaigns} />
+        <Route path="/News" component={News} />
+        <Route path="/Notice" component={Notice} />
       </Switch>
-      <p className="App-intro">
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
     </Fragment>
   );
 }

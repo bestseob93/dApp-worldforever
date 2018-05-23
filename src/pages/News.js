@@ -1,13 +1,12 @@
 import React from 'react';
 import Template from 'components/Template';
-import HomeContainer from 'containers/Home/HomeContainer';
 
-function Home() {
+function News() {
   return (
     <Template>
-      <HomeContainer />
+      News
     </Template>
   );
 }
 
-export default Home;
+export default News;
