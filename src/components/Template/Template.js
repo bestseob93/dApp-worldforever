@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Header from 'components/Common/Header';
 
 function Template({ children }) {
   return (
-    <div>
+    <Fragment>
       <Header />
       <main>{children}</main>
-    </div>
+    </Fragment>
   );
 }
 

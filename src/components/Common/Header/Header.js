@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Nav from 'components/Common/Nav';
+import Logo from 'static/img/logo.png';
 import './Header.scss';
 
 function Header() {
@@ -7,13 +9,9 @@ function Header() {
     <header>
       <div className="wrapper">
         <Link to="/">
-          <span className="logo">WorldForever</span>
+          <span className="logo"><img src={Logo} alt="logo" /></span>
         </Link>
-        <ul>
-          <Link to="/campaigns"><li>Campaigns</li></Link>
-          <Link to="/news"><li>News</li></Link>
-          <Link to="/Notice"><li>Notice</li></Link>
-        </ul>
+        <Nav />
       </div>
     </header>
   );

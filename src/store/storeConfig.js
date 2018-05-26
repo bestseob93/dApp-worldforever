@@ -5,7 +5,9 @@ import installDevTools from 'immutable-devtools';
 import ducks from 'ducks';
 
 // Make our store print nicely in the console
-installDevTools(Immutable);
+if (process.env.NODE_ENV === 'development') {
+  installDevTools(Immutable);
+}
 
 const isDev = process.env.NODE_ENV === 'development';
 

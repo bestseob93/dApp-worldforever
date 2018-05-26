@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { Map } from 'immutable';
 import { connect } from 'react-redux';
 
 import { actionCreators as mainActions } from 'ducks/main.duck';
@@ -13,11 +14,22 @@ class HomeContainer extends Component {
 
   render() {
     console.log(this.props);
+    const a = Map({
+      b: 0,
+      c: 3
+    });
+
+    console.log(a);
     return (
       <div>
         <br />
         <br />
-        <button type="button" onClick={this.onClick}>fetch data</button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <button style={{ display: 'block' }} type="button" onClick={this.onClick}>fetch data</button>
       </div>
     );
   }
