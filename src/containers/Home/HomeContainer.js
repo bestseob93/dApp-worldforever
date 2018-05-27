@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
+import LandingHero from 'components/Home/LandingHero';
 
 import { actionCreators as mainActions } from 'ducks/main.duck';
 
 class HomeContainer extends Component {
+  componentDidMount() {
+    const { MainActions } = this.props;
+    MainActions.initIpfs();
+  }
+
   onClick = async () => {
     console.log('homecontainer button');
     const { MainActions } = this.props;
@@ -21,16 +27,10 @@ class HomeContainer extends Component {
 
     console.log(a);
     return (
-      <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <button style={{ display: 'block' }} type="button" onClick={this.onClick}>fetch data</button>
-      </div>
+      <Fragment>
+        <LandingHero />
+        {/* <button type="button" onClick={this.onClick}>fetch data</button> */}
+      </Fragment>
     );
   }
 }

@@ -4,12 +4,14 @@ import './Nav.scss';
 
 function Nav() {
   return (
-    <div className="nav-wrapper">
-      <ul className="nav">
-        <li><Link to="/campaigns">Campaigns</Link></li>
-        <li><Link to="/news">News</Link></li>
-        <li><Link to="/Notice">Notice</Link></li>
-      </ul>
+    <div className="nav-container">
+      <div className="nav-wrapper">
+        <ul className="nav">
+          <li><Link to="/campaigns">Campaigns</Link></li>
+          <li><Link to="/news">News</Link></li>
+          <li><Link to="/Notice">Notice</Link></li>
+        </ul>
+      </div>
     </div>
   );
 }

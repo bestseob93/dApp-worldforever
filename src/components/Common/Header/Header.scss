@@ -1,24 +1,18 @@
 header {
-  height: 60px;
   position: relative;
 
   .wrapper {
     width: 1200px;
-    height: inherit;
+    height: 60px;
     margin: 0 auto;
   }
-  a {
+  .logo {
     margin: 15px;
     float: left;
     overflow: hidden;
-    .logo {
+    img {
       height: 30px;
-      line-height: 30px;
       float: left;
-      vertical-align: middle;
-      img {
-        height: 30px;
-      }
     }
   }
 }
