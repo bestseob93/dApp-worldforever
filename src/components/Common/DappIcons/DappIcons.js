@@ -11,7 +11,7 @@ function DappIcons() {
     <div className="ethereum-icons">
       {/* TODO: User Client에 따른 보여주는 방식 변경 */}
       <Link to=""><img className="icons" src={TrustWalletIcon} alt="trust wallet" /></Link>
-      <Link to={metaMaskLink}><img className="icons" src={MetaMaskIcon} alt="metamask" /></Link>
+      <a target="_blank" href={metaMaskLink}><img className="icons" src={MetaMaskIcon} alt="metamask" /></a>
     </div>
   );
 }

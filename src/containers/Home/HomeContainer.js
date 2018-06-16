@@ -37,7 +37,8 @@ class HomeContainer extends Component {
 
 export default connect(
   state => ({
-    datas: state.main.get('datas')
+    datas: state.main.get('datas'),
+    ipfs: state.main.get('ipfs')
   }),
   dispatch => ({
     MainActions: bindActionCreators(mainActions, dispatch)
