@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
 import LandingHero from 'components/Home/LandingHero';
+import CardList from 'components/Home/CardList';
 
 import { actionCreators as mainActions } from 'ducks/main.duck';
 
@@ -30,6 +31,7 @@ class HomeContainer extends Component {
       <Fragment>
         <LandingHero />
         {/* <button type="button" onClick={this.onClick}>fetch data</button> */}
+        <CardList cards={a} />
       </Fragment>
     );
   }

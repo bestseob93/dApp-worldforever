@@ -3,7 +3,7 @@ import CardItem from 'components/Home/CardItem';
 
 function CardList({ cards }) {
   const cardList = cards.map((card) => {
-    <CardItem />
+    return <CardItem item={card} />;
   });
   return (
     <ul className="card-list">
