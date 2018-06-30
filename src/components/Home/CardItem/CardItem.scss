@@ -1,0 +1,36 @@
+.card-list {
+  li {
+    flex: 1;
+    -ms-flex: 1;
+    padding: 0 10px;
+    position: relative;
+    .thumb {
+      img {
+        width: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    }
+    .contents {
+      color: #fff;
+      width: 50%;
+      height: 100%;
+      right: 10px;
+      top: 0;
+      .title {
+        font-size: 26px;
+        text-align: center;
+      }
+      .progress {
+        width: 150px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card-list li {
+    width: 100%;
+  }
+}

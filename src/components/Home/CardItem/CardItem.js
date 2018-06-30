@@ -1,28 +1,34 @@
 import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import './CardItem.scss';
 
-function CardItem() {
+function CardItem({ item }) {
   const percentage = 66;
 
   return (
     <li>
-      <a href="https://naver.com">  {/* TODO: replace to <Link> */}
-        <div className="thumb">
-          a
+      <div className="thumb">
+        <img src="https://s3.eu-west-2.amazonaws.com/alice-res/Splash_4x3.jpg" alt="img" />
+      </div>
+      <div className="contents overlay">
+        <label htmlFor="hi" className="type">label</label>
+        <h3 className="title">{item.title}</h3>
+        <p className="description">{item.description}</p>
+        <div className="progress">
+          <CircularProgressbar
+            percentage={percentage}
+            text={`${percentage}%`}
+            styles={{
+              path: {
+                stroke: '#f49000',
+              },
+              text: {
+                fill: '#f49000'
+              }
+            }}
+          />
         </div>
-        <div className="contents">
-          <label htmlFor="hi" className="type">a</label>
-          <h3 className="title">3</h3>
-          <p className="description">4</p>
-          <div className="progress">
-            <CircularProgressbar
-              percentage={percentage}
-              text={`${percentage}%`}
-            />
-          </div>
-        </div>
-      </a>
+      </div>
     </li>
   );
 }

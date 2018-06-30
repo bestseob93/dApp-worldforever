@@ -12,3 +12,21 @@ html, body, main {
 
 a {color: inherit; text-decoration: none; outline: none;}
 a:hover, a:active {text-decoration: none; color:#f59000;}
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.overlay {
+  background-color: #000;
+  opacity: .75;
+  position: absolute;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

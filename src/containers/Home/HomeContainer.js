@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
-import { Map } from 'immutable';
+// import { Map } from 'immutable';
 import { connect } from 'react-redux';
 import LandingHero from 'components/Home/LandingHero';
 import CardList from 'components/Home/CardList';
@@ -21,17 +21,23 @@ class HomeContainer extends Component {
 
   render() {
     console.log(this.props);
-    const a = Map({
-      b: 0,
-      c: 3
-    });
+    const data = [
+      {
+        title: 'Human Right in North Korea',
+        description: 'aaa'
+      },
+      {
+        title: 'Homeless in London Street',
+        description: 'aaa'
+      }
+    ];
 
-    console.log(a);
+    console.log(data);
     return (
       <Fragment>
         <LandingHero />
         {/* <button type="button" onClick={this.onClick}>fetch data</button> */}
-        <CardList cards={a} />
+        <CardList cards={data} />
       </Fragment>
     );
   }
