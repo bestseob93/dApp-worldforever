@@ -24,6 +24,7 @@ module.exports = {
         "no-console": 0,
         "import/prefer-default-export": 0,
         "react/jsx-boolean-value": 0,
+        "react/self-closing-comp": 0,
     },
     "overrides": {
         "files": ["src/*.js"],

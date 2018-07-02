@@ -26,7 +26,7 @@ contract CampaignHashStore {
      * Contract Constructor
      * @param {uint} _price Service minimum price
      */
-    function CampaignHashStore(uint _price) public {
+    constructor(uint _price) public {
         require(_price > 0);
         manager = msg.sender;
         minimumPrice = _price;
@@ -45,20 +45,21 @@ contract CampaignHashStore {
         manager = _newManager;
 
         // Log event
-        OwnershipTransferred(manager, _newManager);
+        emit OwnershipTransferred(manager, _newManager);
     }
 
     /**
      * Withdraw contract accumulated Eth balance
      */
     function withdrawBalance() restricted public {
-        uint amount = this.balance;
+        address myAddress = this;
+        uint amount = myAddress.balance;
 
         // transfer balance
-        manager.transfer(this.balance);
+        manager.transfer(myAddress.balance);
 
         // Log event
-        Withdrawn(manager, amount);
+        emit Withdrawn(manager, amount);
     }
 
     /**
@@ -67,25 +68,25 @@ contract CampaignHashStore {
      */
     function save(string _hashContent) payable public {
         // only save if service price paid
-        require(msg.value >= price);
+        require(msg.value >= minimumPrice);
 
         // create Hash
         uint hashId = ++lastHashId;
-        hashes[hashId].sender = msg.sender;
+        hashes[hashId].creator = msg.sender;
         hashes[hashId].content = _hashContent;
         hashes[hashId].timestamp = block.timestamp;
 
         // Log event
-        NewHashStored(hashes[hashId].sender, hashId, hashes[hashId].content, hashes[hashId].timestamp);
+        emit NewHashStored(hashes[hashId].creator, hashId, hashes[hashId].content, hashes[hashId].timestamp);
     }
 
     /**
     * find hash by id
     * @param {uint} _hashId Hash Id
-    * @returns {address, string, uint} hashSender, hashContent, hashTimestamp
+    * @returns {address, string, uint} hashCreator, hashContent, hashTimestamp
     */
-    function find(uint _hashId) constant public returns (address hashSender, string hashContent, uint hashTimestamp) {
-        return (hashes[_hashId].sender, hashes[_hashId].content, hashes[_hashId].timestamp);
+    function find(uint _hashId) view public returns (address hashCreator, string hashContent, uint hashTimestamp) {
+        return (hashes[_hashId].creator, hashes[_hashId].content, hashes[_hashId].timestamp);
     }
 }
 
@@ -93,8 +94,8 @@ contract CampaignHashStore {
 contract CampaignFactory {
     address[] public deployedCampaigns;
     
-    function createCampaign(uint minimum) public {
-        address newCampaign  = new Campaign(minimum, msg.sender);
+    function createCampaign(uint maximum, uint minimum) public {
+        address newCampaign = new Campaign(maximum, minimum, msg.sender);
         deployedCampaigns.push(newCampaign);
     }
     
@@ -116,6 +117,7 @@ contract Campaign {
     Request[] public requests;
     address public manager;
     uint public minimumContribution;
+    uint public targetAmount;
     mapping(address => bool) public approvers;
     uint public approversCount;
     
@@ -124,7 +126,8 @@ contract Campaign {
         _;
     }
     
-    function Campaign(uint minimum, address creator) public {
+    constructor(uint maximum, uint minimum, address creator) public {
+        targetAmount = maximum;
         manager = creator;
         minimumContribution = minimum;
     }
@@ -137,15 +140,15 @@ contract Campaign {
     }
     
     function createRequest(string description, uint value, address recipient) public restricted {
-            Request memory newRequest = Request({
-               description: description,
-               value: value,
-               recipient: recipient,
-               complete: false,
-               approvalCount: 0
-            });
+        Request memory newRequest = Request({
+            description: description,
+            value: value,
+            recipient: recipient,
+            complete: false,
+            approvalCount: 0
+        });
 
-            requests.push(newRequest);
+        requests.push(newRequest);
     }
     
     function approveRequest(uint index) public {
@@ -168,11 +171,13 @@ contract Campaign {
     }
 
     function getSummary() public view returns (
-        uint, uint, uint, uint, address
+        uint, uint, uint, uint, uint, address
     ) {
+        address myAddress = this;
         return (
+            targetAmount,
             minimumContribution,
-            this.balance,
+            myAddress.balance,
             requests.length,
             approversCount,
             manager

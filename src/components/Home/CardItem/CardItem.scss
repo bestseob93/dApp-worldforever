@@ -12,18 +12,61 @@
         margin: auto;
       }
     }
-    .contents {
+    .contents-overlay {
+      width: 50%;
+      height: 100%;
+      right: 10px;
+      top: 0;
+      background-color: #000;
+      opacity: .75;
+      position: absolute;
+    }
+    .contents-box {
       color: #fff;
       width: 50%;
       height: 100%;
       right: 10px;
       top: 0;
+      padding-top: 30px;
+      position: absolute;
+      label.type {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #f49000;
+        width: 70px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+      }
       .title {
         font-size: 26px;
         text-align: center;
       }
-      .progress {
-        width: 150px;
+      .progress-wrapper {
+        text-align: center;
+        .progress {
+          margin: 0 auto;
+          width: 150px;
+          position: relative;
+        }
+        .balance-wrapper {
+          padding-top: 15px;
+          width: 100%;
+          position: relative;
+        }
+        p {
+          margin: 0;
+          padding: 0;
+        }
+        span {
+          color: #f49000;
+        }
+      }
+      .detail-btn {
+        background-color: #f49000;
+        border: 1px solid #fff;
+        padding: 10px;
       }
     }
   }
