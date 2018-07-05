@@ -1,93 +1,118 @@
 pragma solidity ^0.4.17;
 
-contract CampaignHashStore {
+contract HashStore {
+  /*
+  *  Events
+  */
+  event OwnershipTransferred(address indexed _previousOwner, address indexed _newOwner);
+  event NewHashStored(address indexed _hashSender, uint _hashId, string _hashContent, uint timestamp);
+  event Withdrawn(address indexed _hashSender, uint amount);
 
-    event OwnershipTransferred(address indexed _previousManager, address indexed _newManager);
-    event NewHashStored(address indexed _hashSender, uint _hashId, string _hashContent, uint timestamp);
-    event Withdrawn(address indexed _hashSender, uint amount);
+  /*
+  * Storage
+  */
 
-    struct Hash {
-        address creator;
-        string content;
-        uint timestamp;
-    }
+  struct Hash {
+    // sender address
+    address sender;
+    // hash text
+    string content;
+    // creation timestamp
+    uint timestamp;
+  }
 
-    mapping(uint => Hash) public hashes;
-    address public manager;
-    uint public lastHashId;
-    uint public minimumPrice;
+  // Hashes mapping
+  mapping(uint => Hash) public hashes;
+  // Contract owner
+  address public owner;
+  // Last stored Hash Id
+  uint public lastHashId;
+  // Service price in Wei
+  uint public price;
 
-    modifier restricted() {
-        require(msg.sender == manager);
-        _;
-    }
+  /*
+  * Modifiers
+  */
 
-    /**
-     * Contract Constructor
-     * @param {uint} _price Service minimum price
-     */
-    constructor(uint _price) public {
-        require(_price > 0);
-        manager = msg.sender;
-        minimumPrice = _price;
-        lastHashId = 0;
-    }
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
 
-    /**
-     * Transfer contract ownership
-     * @param {address} _newManager New manager's address
-     */
-    function transferOwnership(address _newManager) restricted public {
-        // check address not null
-        require(_newManager != address(0));
+  /*
+  * Public functions
+  */
 
-        // assign new owner
-        manager = _newManager;
+  /**
+  * @dev Contract constructor
+  * @param _price Service price
+  */
+  constructor(uint _price) public {
+    // check price valid
+    require(_price > 0);
 
-        // Log event
-        emit OwnershipTransferred(manager, _newManager);
-    }
+    // assign owner
+    owner = msg.sender;
+    // assign price
+    price = _price;
+    // init ids
+    lastHashId = 0;
+  }
 
-    /**
-     * Withdraw contract accumulated Eth balance
-     */
-    function withdrawBalance() restricted public {
-        address myAddress = this;
-        uint amount = myAddress.balance;
+  /**
+  * @dev Transfer contract ownership
+  * @param _newOwner New owner address
+  */
+  function transferOwnership(address _newOwner) onlyOwner public {
+    // check address not null
+    require(_newOwner != address(0));
 
-        // transfer balance
-        manager.transfer(myAddress.balance);
+    // assign new owner
+    owner = _newOwner;
 
-        // Log event
-        emit Withdrawn(manager, amount);
-    }
+    // Log event
+    emit OwnershipTransferred(owner, _newOwner);
+  }
 
-    /**
-     * save new hash
-     * @param {string} _hashContent Hash Content
-     */
-    function save(string _hashContent) payable public {
-        // only save if service price paid
-        require(msg.value >= minimumPrice);
+  /**
+  * @dev Withdraw contract accumulated Eth balance
+  */
+  function withdrawBalance() onlyOwner public {
+    address myAddress = this;
+    uint amount = myAddress.balance;
 
-        // create Hash
-        uint hashId = ++lastHashId;
-        hashes[hashId].creator = msg.sender;
-        hashes[hashId].content = _hashContent;
-        hashes[hashId].timestamp = block.timestamp;
+    // transfer balance
+    owner.transfer(amount);
 
-        // Log event
-        emit NewHashStored(hashes[hashId].creator, hashId, hashes[hashId].content, hashes[hashId].timestamp);
-    }
+    // Log event
+    emit Withdrawn(owner, amount);
+  }
 
-    /**
-    * find hash by id
-    * @param {uint} _hashId Hash Id
-    * @returns {address, string, uint} hashCreator, hashContent, hashTimestamp
-    */
-    function find(uint _hashId) view public returns (address hashCreator, string hashContent, uint hashTimestamp) {
-        return (hashes[_hashId].creator, hashes[_hashId].content, hashes[_hashId].timestamp);
-    }
+  /**
+  * @dev save new hash
+  * @param _hashContent Hash Content
+  */
+  function save(string _hashContent) payable public {
+    // only save if service price paid
+    require(msg.value >= price);
+
+    // create Hash
+    uint hashId = ++lastHashId;
+    hashes[hashId].sender = msg.sender;
+    hashes[hashId].content = _hashContent;
+    hashes[hashId].timestamp = block.timestamp;
+
+    // Log event
+    emit NewHashStored(hashes[hashId].sender, hashId, hashes[hashId].content, hashes[hashId].timestamp);
+  }
+
+  /**
+  * @dev find hash by id
+  * @param _hashId Hash Id
+  */
+  function find(uint _hashId) view public returns (address hashSender, string hashContent, uint hashTimestamp) {
+    return (hashes[_hashId].sender, hashes[_hashId].content, hashes[_hashId].timestamp);
+  }
 }
 
 
