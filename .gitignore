@@ -8,6 +8,7 @@
 
 # ethereum
 /ethereum/build
+/ethereum/env-key.json
 
 # production
 /build
