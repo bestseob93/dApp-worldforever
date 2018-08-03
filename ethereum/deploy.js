@@ -19,22 +19,22 @@ const deploy = async () => {
 
   const deployFactory = await new web3.eth.Contract(
     JSON.parse(compiledFactory.interface))
-    .deploy({ data: compiledFactory.bytecode })
+    .deploy({ data: '0x' + compiledFactory.bytecode })
     .send({ gas: '1000000', from: accounts[0] })
     .catch(err => {
       if (err) console.log('deploying factory error occured', err);
     });
 
-  const deployHashStore = await new web3.eth.Contract(
-    JSON.parse(compiledHashStore.interface))
-    .deploy({ data: compiledHashStore.bytecode })
-    .send({ gas: '1000000', from: accounts[0] })
-    .catch(err => {
-      if (err) console.error('deploying hashstore error occured', err);
-    });
+  // const deployHashStore = await new web3.eth.Contract(
+  //   JSON.parse(compiledHashStore.interface))
+  //   .deploy({ data: compiledHashStore.bytecode })
+  //   .send({ gas: '1000000', from: accounts[0] })
+  //   .catch(err => {
+  //     if (err) console.error('deploying hashstore error occured', err);
+  //   });
 
-  console.log('Factory Contract deployed to ', deployFactory);
-  console.log('HashStore Contract deployed to ', deployHashStore);
+  console.log('Factory Contract deployed to ', deployFactory.options.address);
+  // console.log('HashStore Contract deployed to ', deployHashStore);
 };
 
 deploy();
